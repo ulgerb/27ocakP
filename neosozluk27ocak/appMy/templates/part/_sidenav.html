@@ -1,0 +1,80 @@
+{% load static %}
+<!-- Side Nav -->
+<div class="col-4">
+    <div class="flex-shrink-0 p-3 bg-white">
+        <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+            <svg class="bi pe-none me-2" width="30" height="24">
+                <use xlink:href="#bootstrap"></use>
+            </svg>
+            <span class="fs-5 fw-semibold">Collapsible</span>
+        </a>
+        <!-- Category Start -->
+        <div class="list-group">
+            <h4>Kategoriler</h4>
+
+            {% for i in categorys %}
+            <a href="/post/{{ i.id }}/" class="list-group-item list-group-item-action">{{ i.title }}</a>
+            {% endfor %}
+
+        </div>
+        <!-- Accordion Start -->
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Yeni Konular
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <ol class="list-group list-group-numbered">
+
+                            {% for i in sozluks_new %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">{{ i.title }}</div>
+                                    {{ i.date_now }}
+                                </div>
+                                <span class="badge bg-primary rounded-pill">14</span>
+                            </li>
+                            {% endfor %}
+
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-heading2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapse2" aria-expanded="false" aria-controls="flush-collapse2">
+                        İlginizi Çekicek Konular
+                    </button>
+                </h2>
+                <div id="flush-collapse2" class="accordion-collapse collapse" aria-labelledby="flush-heading2"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        <ol class="list-group list-group-numbered">
+
+                            {% for i in sozluks_random %}
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">{{ i.title }}</div>
+                                    {{ i.date_now }}
+                                </div>
+                                <span class="badge bg-primary rounded-pill">14</span>
+                            </li>
+                            {% endfor %}
+
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+     
+    <main>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-8">
+                    <div class="card mb-3">
+                        <img src="{{ sozluk.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sozluk.title }}</h5>
+                            <p class="card-text">{{ sozluk.text }}</p>
+                            <p class="card-text"><small class="text-muted">{{ sozluk.date_now }}</small></p>
+                        </div>
+                    </div>
+                </div>
+                {% include 'part/_sidenav.html' %}
+            </div>
+        </div>
+    </main>
+
+{% endblock body %}

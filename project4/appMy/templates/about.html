@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anasayfa</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Anasayfa</a></li>
+                <li><a href="/about/">Hakkında</a></li>
+                <li><a href="/contact/">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <h1>HAKKINDA</h1>
+
+        <div class="row">
+            
+            {% for i in products %}
+            <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">{{ i.title }}</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">Fiyat: ₺{{ i.price }}</div>
+                        <div class="card-text">Puan: {{ i.stars }}</div> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="row my-4">
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">{{ prod1.title }}</div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">{{ prod2.title }}</div>
+                    </div>
+                </div>
+                
+                {% for i in products2 %}
+                {% if i.title != "Robot" %}
+                <div class="col-4">
+                    
+                    <div class="card">
+                        <div class="card-header">{{ i.title }}</div>
+                    </div>
+                    
+                </div>
+                {% endif %}
+                {% endfor %}
+                <h2>Filter Card</h2>
+                
+                {% for i in cards_filter1 %}
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header">{{ i.title }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <h2>Apple</h2>
+                
+                {% for i in cards_apple %}
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-header">{{ i.title }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+                    
+                <h2>Samsung</h2>
+            </div>
+            
+        </div>
+        
+        <p>
+            ÖDEV: Bugün yapılanları 3kez tekrarla
+            card: title,text,fiyat
+            basriberkay@gmail.com
+        </p>
+        <img src="{% static 'img/manz.jpg' %}" alt="">
+        
+    </main>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anasayfa</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Anasayfa</a></li>
+                <li><a href="/about/">Hakkında</a></li>
+                <li><a href="/contact/">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <h1>{{ title }}</h1>
+        <ol style="margin: 10px;">
+            <h2>{{ pagelook }}</h2>
+            <li class="list1">app uygulaması başlatıyoruz</li>
+            <li class="list1">settings içerisinde app uygulamamızı tanımlıyoruz</li>
+            <li class="list1">app klasörümün içerisine, templates klasör açılır ve içerisine html dosyası oluşturulur.</li>
+            <li class="list1">bir sayfanın görünebilmesi için url ve fonksiyona ihtiyacı var.</li>
+            <li class="list1">views.py içerisinde fonksiyon oluşturulur. ve urlde tanımlanır.</li>
+        </ol>
+
+        <div class="container">
+            {% for i in cards %}
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">{{ i.title }}</div>
+                    <div>#{{ i.category }}</div>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">{{ i.text }}</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </main>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>

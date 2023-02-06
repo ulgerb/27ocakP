@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anasayfa</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Anasayfa</a></li>
+                <li><a href="/about/">Hakkında</a></li>
+                <li><a href="/contact/">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="margin-top: 100px;">
+        <h1>İletişim</h1>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12048.347003494864!2d28.874887!3d40.9795812!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x109cda61c48e4b76!2sNeos%20Yaz%C4%B1l%C4%B1m%20Akademi!5e0!3m2!1str!2str!4v1675071014961!5m2!1str!2str" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </main>
+
+    <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
