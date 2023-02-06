@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from .models import *
+from django.core.paginator import Paginator
 # Create your views here.
 
 def index(request):
-    sozluks = Sozluk.objects.all()
+    sozluks = Sozluk.objects.all()[:5]
     # Side nav
     sozluks_new = Sozluk.objects.all().order_by("-date_now")[:3]
     sozluks_random = Sozluk.objects.all().order_by("?")[:3]
@@ -41,6 +42,11 @@ def allPost(request,categoryid="all"):
         sozluks = Sozluk.objects.all()
     else:
         sozluks = Sozluk.objects.filter(category=categoryid)
+    
+    paginator = Paginator(sozluks, 5)  # Show 25 contacts per page.
+    page_number = request.GET.get('page')
+    sozluks = paginator.get_page(page_number)
+    
         
     # Side nav
     sozluks_new = Sozluk.objects.all().order_by("-date_now")[:3]

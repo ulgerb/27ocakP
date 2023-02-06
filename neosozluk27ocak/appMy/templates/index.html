@@ -42,6 +42,7 @@
             <div class="row">
                 <div class="col-8">
                     <div class="list-group">
+                        <h2 class="card-title bg-white p-3">Popüler Postlar</h2>
                         
                         {% for i in sozluks %}
                         <a href="/detay/{{ i.id }}/" class="list-group-item list-group-item-action">
@@ -49,8 +50,8 @@
                                 <h5 class="mb-1">{{ i.title }}</h5>
                                 <small>{{ i.date_now }}</small>
                             </div>
-                            <p class="mb-1">Some placeholder content in a paragraph.</p>
-                            <small>And some small print.</small>
+                            <p class="mb-1">{{ i.text|truncatechars:100 }}</p>
+                            <small>Kategori: {{ i.category.title }}</small>
                         </a>
                         {% endfor %}
                             
