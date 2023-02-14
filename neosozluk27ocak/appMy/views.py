@@ -26,13 +26,24 @@ def Detail(request,id):
     sozluks_new = Sozluk.objects.all().order_by("-date_now")[:3]
     sozluks_random = Sozluk.objects.all().order_by("?")[:3]
     categorys = Category.objects.all()
+    comments = Comment.objects.filter(sozluk=sozluk)
     
+    if request.method == "POST":
+        user1 = request.POST["user"]
+        title1 = request.POST["title"]
+        text1 = request.POST["text"]
+        
+        comm = Comment(user=user1, title=title1, text=text1, sozluk=sozluk)
+        comm.save()
+        
+        
     context={
         "sozluk": sozluk,
         # Side nav
         "sozluks_new": sozluks_new,
         "sozluks_random": sozluks_random,
         "categorys": categorys,
+        "comments": comments,
     }
     return render(request, 'detail.html',context)
 

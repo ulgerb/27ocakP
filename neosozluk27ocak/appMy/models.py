@@ -17,3 +17,13 @@ class Sozluk(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Comment(models.Model):
+    sozluk = models.ForeignKey(Sozluk, verbose_name=("Sozluk"), on_delete=models.CASCADE)
+    user = models.CharField(("Yorumu Yapan"), max_length=50)
+    title = models.CharField(("Yorum Başlığı"), max_length=50)
+    text = models.TextField(("Yorum"), max_length=1000)
+    date_now = models.DateTimeField(("Paylaşım Zamanı"), auto_now_add=True)
+    
+    def __str__(self):
+        return self.sozluk.title

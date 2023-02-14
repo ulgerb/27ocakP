@@ -36,6 +36,31 @@
                                 {% endif %}
                             </span>
                         </div>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                {% if sozluks.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page=1" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="?page={{ sozluks.previous_page_number }}">previous</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ sozluks.number|add:'-1' }}">{{ sozluks.number|add:"-1" }}</a></li>
+                                {% endif %}
+
+                                <li class="page-item"><a class="page-link" href="?page={{ sozluks.number }}">{{ sozluks.number }}</a></li>
+                                
+                                {% if sozluks.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ sozluks.number|add:'1' }}">{{ sozluks.number|add:"1" }}</a></li>
+                                <li class="page-item"><a class="page-link" href="?page={{ sozluks.next_page_number }}">next</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ sozluks.paginator.num_pages }}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
 
                     </div>
                 </div>
