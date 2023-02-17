@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<section class="vh-100 pt-4" style="background-color: #508bfc; height: 120vh !important;">
+    <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                    <form method="POST" class="card-body p-5 text-center">
+                        {% csrf_token %}
+                        <h3 class="mb-1">Register</h3>
+                        
+                        {% if hata %}
+                            <div class="text-danger">{{ hata }}</div>
+                        {% endif %}
+                            
+                        <div class="form-outline mb-4">
+                            <input type="text" name="name" id="typeEmailX-2" class="form-control form-control-lg" />
+                            <label class="form-label" for="typeEmailX-2">Name</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" name="surname" id="typeEmailX-2" class="form-control form-control-lg" />
+                            <label class="form-label" for="typeEmailX-2">Surname</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="text" name="email" id="typeEmailX-2" class="form-control form-control-lg" />
+                            <label class="form-label" for="typeEmailX-2">Email</label>
+                        </div>
+                        
+                        <div class="form-outline mb-4">
+                            <input type="text" name="username" id="typeEmailX-2" class="form-control form-control-lg" />
+                            <label class="form-label" for="typeEmailX-2">Username</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="password" name="password1" id="typePasswordX-2"
+                                class="form-control form-control-lg" />
+                            <label class="form-label" for="typePasswordX-2">Password</label>
+                        </div>
+                        <div class="form-outline mb-4">
+                            <input type="password" name="password2" id="typePasswordX-2"
+                                class="form-control form-control-lg" />
+                            <label class="form-label" for="typePasswordX-2">RePassword</label>
+                        </div>
+
+                       
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
