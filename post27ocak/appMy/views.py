@@ -1,13 +1,28 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from .models import *
 
 def index(request):
-    
     return render(request,'index.html')
 
+def Portfolio(request):
+    posts = Post.objects.all()
+    categorys = Category.objects.all()
+    
+    context = {
+        "posts": posts,
+        "categorys":categorys,
+    }
+    return render(request, 'portfolio.html', context)
 
-# USER
+def Detail(request):
+    return render(request,'portfolio-details.html')
+
+def innerPage(request):
+    return render(request,'inner-page.html')
+
+# ======= USER =======
 def loginUser(request):
     context = {}
     # html formu düzenledikten sonra, request.methodu kontrol etmem lazım

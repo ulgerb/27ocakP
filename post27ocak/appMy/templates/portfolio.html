@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+<main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Portfolio</h2>
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li>Portfolio</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+        <div class="container" data-aos="fade-up">
+    
+            <div class="section-title">
+                <h2>Portfolio</h2>
+                <h3>Check our <span>Portfolio</span></h3>
+                <p>Ut possimus qui ut temporibus culpa velit eveniet modi omnis est adipisci expedita at voluptas atque
+                    vitae autem.</p>
+            </div>
+    
+            <div class="row" data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-12 d-flex justify-content-center">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-active">All</li>
+                        
+                        {% for i in categorys %}
+                        <li data-filter=".filter-{{ i.title }}">{{ i.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+    
+            <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                
+                
+                {% for i in posts %}
+                <div class="col-lg-4 col-md-6 portfolio-item filter-{{ i.category.title }}">
+                    <img src="{{ i.image1.url }}" class="img-fluid" alt="">
+                    <div class="portfolio-info">
+                        <h4>{{ i.title }}</h4>
+                        <p style="text-transform: capitalize;">{{ i.category.title }}</p>
+                        <a href="{% static 'img/portfolio/portfolio-1.jpg' %}" data-gallery="portfolioGallery"
+                            class="portfolio-lightbox preview-link" title="App 1"><i class="bx bx-plus"></i></a>
+                        <a href="portfolio-details.html" class="details-link" title="More Details"><i
+                                class="bx bx-link"></i></a>
+                    </div>
+                </div>
+                {% endfor %}
+                    
+    
+            </div>
+    
+        </div>
+    </section><!-- End Portfolio Section -->
+
+</main><!-- End #main -->
+
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+{% endblock body %}
