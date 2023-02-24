@@ -24,12 +24,41 @@
                     <div class="card-body text-center">
                         <img src="{{ userinfo.image.url }}"
                             alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
-                        <h5 class="my-3">{{ user.username }}</h5>
-                        <p class="text-muted mb-1">{{ userinfo.job }}</p>
-                        <p class="text-muted mb-4">{{ userinfo.adress }}</p>
+                        <h5 class="my-3">Kullanıcı Adı: {{ user.username }}</h5>
+                        <p class="text-muted mb-1">İş: {{ userinfo.job }}</p>
+                        <p class="text-muted mb-4">Adres: {{ userinfo.adress }}</p>
                         <div class="d-flex justify-content-center mb-2">
                             <button type="button" class="btn btn-primary">Follow</button>
                             <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+                            <div class="col-sm-1 ps-5">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalProfil">
+                                    Düzenle
+                                </button>
+                            
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalProfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Profil Edit</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="file" name="image" class="form-control" id="">
+                                                    <input type="text" name="username" value="{{ user.username }}" id="" class="form-control mt-2" placeholder="Yeni Kullanıcıadı">
+                                                    <input type="text" name="job" value="{{ userinfo.job }}" id="" class="form-control mt-2" placeholder="Yeni İş">
+                                                    <input type="text" name="password" id="" class="form-control mt-2" placeholder="Değiştirmek için şifre girin">
+                                                    <button type="submit" name="formbutton" value="profilChange"
+                                                        class="btn btn-primary mt-2">Kaydet</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,8 +96,35 @@
                             <div class="col-sm-3">
                                 <p class="mb-0">Full Name</p>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalName">
+                                    +
+                                </button>
+                            
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Name Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="text" name="name" id="" class="form-control mt-2" placeholder="Yeni Ad">
+                                                    <input type="text" name="surname" id="" class="form-control mt-2" placeholder="Yeni Soyad">
+                                                    <button type="submit" name="formbutton" value="nameChange"
+                                                        class="btn btn-primary mt-2">Kaydet</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -111,8 +167,35 @@
                             <div class="col-sm-3">
                                 <p class="mb-0">Phone</p>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <p class="text-muted mb-0">(+90) {{ userinfo.phone }}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPhone">
+                                    +
+                                </button>
+                            
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalPhone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Phone Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="tel" name="tel" id="" class="form-control mt-2" placeholder="Yeni Tel">
+                                                    <input type="password" name="password" id="" class="form-control mt-2" placeholder="Şifre">
+                                                    <button type="submit" name="formbutton" value="telChange"
+                                                        class="btn btn-primary mt-2">Kaydet</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <hr>
@@ -120,14 +203,40 @@
                             <div class="col-sm-3">
                                 <p class="mb-0">Address</p>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-8">
                                 <p class="text-muted mb-0">{{ userinfo.adress }}</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddress">
+                                    +
+                                </button>
+                            
+                                <!-- Modal -->
+                                <div class="modal fade" id="modalAddress" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Address Change</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST">
+                                                    {% csrf_token %}
+                                                    <textarea name="address" class="form-control" id="" cols="30" rows="4">{{ userinfo.adress }}</textarea>
+                                                    <button type="submit" name="formbutton" value="addressChange"
+                                                        class="btn btn-primary mt-2">Kaydet</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="card mb-4 mb-md-0">
                             <div class="card-body">
                                 <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project
@@ -140,7 +249,7 @@
                                     <input type="text" name="title" id="title" class="form-control">
                                     <label for="statu">Yetenek Değeri</label>
                                     <input type="number" name="statu" min="0" max="100" id="statu" class="form-control">
-                                    <button class="btn btn-primary w-100 mt-2" type="submit">Ekle</button>
+                                    <button class="btn btn-primary w-100 mt-2" name="formbutton" value="formStatu" type="submit">Ekle</button>
                                 </form>
                                 
                                 <script>
@@ -156,7 +265,30 @@
                                 </script>
                                 
                                 {% for i in userinfo.status.all %}
-                                <p class="mb-1" style="font-size: 1rem;">{{ i.title }}</p>
+                                <div class="d-flex justify-content-between mt-2">
+                                    <p class="mb-1" style="font-size: 1rem;">{{ i.title }}</p>
+                                    
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del{{ i.id }}">
+                                        x
+                                    </button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="del{{ i.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Yeteneği silmek istediğine eminmisin?</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hayır</button>
+                                                    <a href="/profil/deleteStatu/{{ i.id }}/" type="button" class="btn btn-primary">Evet</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="progress rounded mb-3" style="height: 10px;">
                                     <div class="progress-bar" role="progressbar" style="width: {{ i.statu }}%;" aria-valuenow="{{ i.statu }}"
                                         aria-valuemin="0" aria-valuemax="100"></div>
@@ -188,40 +320,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="card mb-4 mb-md-0">
-                            <div class="card-body">
-                                <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project
-                                    Status
-                                </p>
-                                <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                                <div class="progress rounded" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                                <div class="progress rounded mb-2" style="height: 5px;">
-                                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>

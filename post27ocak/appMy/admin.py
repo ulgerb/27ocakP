@@ -17,6 +17,7 @@ class PostAdmin(admin.ModelAdmin):
 
 # admin.site.register(Post)
 admin.site.register(Category)
+admin.site.register(Contact)
 
 # USER
 admin.site.register(UserInfo)

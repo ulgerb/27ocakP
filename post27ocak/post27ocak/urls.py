@@ -33,4 +33,5 @@ urlpatterns = [
     path('register/', registerUser, name='registerUser'), # Kaydol
     path('changePassword/', changePasswordUser, name='changePasswordUser'), # Parola değiştir
     path('profil/', profilUser, name='profilUser'), # Kullanıcı profili
+    path('profil/deleteStatu/<sid>/', deleteStatu, name="deleteStatu"), # Yetenek Silme
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
