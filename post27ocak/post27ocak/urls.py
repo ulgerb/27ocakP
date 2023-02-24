@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('Home/Portfolio/', Portfolio, name='Portfolio'),
-    path('Home/Portfolio/Detail/', Detail, name='Detail'),
+    path('Home/Portfolio/Detail/<pid>/', Detail, name='Detail'),
     path('inner/', innerPage,name='innerPage'),
     
     # USER

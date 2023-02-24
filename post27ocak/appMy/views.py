@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .models import *
@@ -16,8 +16,12 @@ def Portfolio(request):
     }
     return render(request, 'portfolio.html', context)
 
-def Detail(request):
-    return render(request,'portfolio-details.html')
+def Detail(request,pid):
+    post = get_object_or_404(Post,id=pid)
+    context = {
+        "post":post,
+    }
+    return render(request,'portfolio-details.html',context)
 
 def innerPage(request):
     return render(request,'inner-page.html')
@@ -117,6 +121,22 @@ def changePasswordUser(request):
 def profilUser(request):
     context={}
     user = User.objects.get(username = request.user)
+    userinfo = UserInfo.objects.get(user=user)
+    
+    print(userinfo.status.all())
+    
+    if request.method=="POST": # methodun post olduğunu doğrula
+        # ___EMAİL___
+        if request.POST["formbutton"] == "emailChange": # formdan gelen butonu kontrol et
+            password = request.POST["password"] # parolayı değişkene çek
+            if user.check_password(password): # parolayı kontrol et
+                email = request.POST["email"] # emaili çek
+                user.email = email # emaili değiştir
+                user.save() # kullanıcıyı kaydet
+                return redirect('profilUser') # sayfayı resetle, aynı sayfayı tekrar yönlendir
 
-    context.update({"user":user})
+    context.update({
+        "user":user,
+        "userinfo":userinfo,
+    })
     return render(request,'user/profil.html',context)

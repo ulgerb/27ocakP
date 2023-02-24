@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Category(models.Model):
@@ -19,3 +19,24 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+# USER MODEL
+class UserInfoStatus(models.Model):
+    user=models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
+    title=models.CharField(("Yetenek Adı"), max_length=50)
+    statu=models.IntegerField(("Yetenek Değeri"), default=0)
+
+    def __str__(self):
+        return "KULLANICI: "+ self.user.username +"...........YETENEK: "+ self.title
+    
+class UserInfo(models.Model):
+    user=models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
+    password=models.CharField(("Şifre"), max_length=50)
+    job= models.CharField(("İş"), max_length=50)
+    image=models.FileField(("Fotoğraf"), upload_to=None, max_length=100)
+    phone=models.CharField(("Telefon Numarası"), max_length=50)
+    adress=models.CharField(("Adres"), max_length=50)
+    status=models.ManyToManyField(UserInfoStatus, verbose_name=("Yetenekler"))
+
+    def __str__(self):
+        return self.user.username
