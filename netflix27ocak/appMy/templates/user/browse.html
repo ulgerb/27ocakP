@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block css %}
+   <style>
+        .card img:hover {
+            border: 4px solid white;
+        }
+        
+        button:hover {
+            border: 1px solid white;
+            color: white !important;
+        }
+        .profil-image{
+            width: 100%;
+            height: 217px;
+            object-fit: cover;
+        }
+        .profil-settings{
+            width: 217px;
+            position: absolute;
+            z-index: 10;
+        }
+        .profil-settings a{
+            width: 100%;
+        }
+    </style> 
+{% endblock css %}
+    
+
+{% block nonheader %}
+<nav class="navbar">
+    <div class="container">
+        <a href="{% url 'index' %}" class="navbar-brand">
+            <img src="{% static 'img/netflix_logo.png' %}" alt="">
+        </a>
+    </div>
+</nav>
+
+<!-- profil seçimi -->
+<div class="container">
+    <div class="row w-75 m-auto bg-black bg-opacity-25">
+        <h1 class="text-center text-light">Kimler İzliyor?</h1>
+        
+        {% for i in profils %}
+        <div class="col-3 mt-5 mb-5 position-relative">
+            <div class="dropdown profil-settings">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Profil Ayarı
+                </a>
+            
+                <ul class="dropdown-menu">
+                    <!-- Button trigger modal -->
+                    <button class="bg-dark text-secondary w-100 p-2" data-bs-toggle="modal" data-bs-target="#profil{{ i.id }}">
+                        Profil Düzenle
+                    </button>
+                    
+                    <li><a class="dropdown-item" href="{% url 'BrowseDel' i.id %}">Profili Sil</a></li>
+                </ul>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="profil{{ i.id }}" tabindex="-1" aria-labelledby="profilAddLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="profilAddLabel">Profil Düzenle</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label d-block text-start">Profil Adı</label>
+                                    <input type="text" name="name" value="{{ i.name }}" class="form-control" id="name" placeholder="Profil adı giriniz">
+                                </div>
+                                <label for="image" class="form-label d-block text-start">Profil Resmi</label>
+                                <input type="file" name="image" value="{{ i.image.url }}" id="image" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <input type="hidden" name="profilid" value="{{ i.id }}">
+                                <button type="submit" name="button" value="buttonProfil" class="btn btn-primary">Düzenle</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- PROFIL -->
+            <a href="/Netflix/{{ i.id }}/" class="text-decoration-none text-secondary">
+                <div class="card bg-transparent">
+                    
+                    {% if i.image %}
+                        <img src="{{ i.image.url }}" class="card-img-top profil-image" alt="">
+                    {% else %}
+                        <img src="{% static 'img/smile-icon.jpg' %}" class="card-img-top" alt="">
+                        
+                    {% endif %}
+                        
+                    
+                    <div>
+                        <h5 class="card-title text-center ">{{ i.name }}</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+            
+
+        <div class="buton mb-5 text-center">
+            <!-- Button trigger modal -->
+            <button class="bg-dark text-secondary w-50 p-2" data-bs-toggle="modal" data-bs-target="#profilAdd">
+                Profil Yönetimi
+            </button>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="profilAdd" tabindex="-1" aria-labelledby="profilAddLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="profilAddLabel">Profil Oluştur</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label d-block text-start">Profil Adı</label>
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Profil adı giriniz">
+                                </div>
+                                <label for="image" class="form-label d-block text-start">Profil Resmi</label>
+                                <input type="file" name="image" id="image" class="form-control">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" name="button" value="makeprofil" class="btn btn-primary">Oluştur</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock nonheader %}
+
+    
+
+

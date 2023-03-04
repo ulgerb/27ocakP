@@ -145,7 +145,8 @@ def profilUser(request):
             if user.check_password(password):  # parolayı kontrol et
                 username = request.POST["username"]  # kullanıcı çek
                 job = request.POST["job"]  # iş çek
-                image = request.FILES["image"]
+                
+                image = request.FILES.get("image")
                 
                 user.username = username
                 user.save()

@@ -22,8 +22,17 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
+                        
+                        {% if userinfo.image %}
                         <img src="{{ userinfo.image.url }}"
                             alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                            
+                        {% else %}
+                            
+                            <img src="{% static 'img/team/team-1.jpg' %}"
+                                alt="avatar" class="rounded-circle img-fluid" style="width: 150px; height: 150px; object-fit: cover;">
+                        {% endif %}
+                            
                         <h5 class="my-3">Kullanıcı Adı: {{ user.username }}</h5>
                         <p class="text-muted mb-1">İş: {{ userinfo.job }}</p>
                         <p class="text-muted mb-4">Adres: {{ userinfo.adress }}</p>
