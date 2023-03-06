@@ -9,3 +9,9 @@ class ProfilAdmin(admin.ModelAdmin):
     list_display = ('user','name','id')
     list_filter = ('user','name')
     
+@admin.register(UserInfo)
+class UserInfoAdmin(admin.ModelAdmin):
+    '''Admin View for Profil'''
+
+    list_display = ('user', 'phone_number', 'id')
+    list_filter = ('user','phone_number')

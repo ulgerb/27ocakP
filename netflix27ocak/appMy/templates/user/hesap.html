@@ -40,14 +40,92 @@
                     <button>Üyeliği iptal et</button>
                 </div>
                 <div class="col">
-                    <strong>berkayulger45920@gmail.com</strong>
-                    <p>Parola:*******</p>
-                    <p>tel: 0537 692 52 42</p>
+                    <strong>{{ request.user.email }}</strong>
+                    <p>Parola: *****{{ userinfo.password|last }}</p>
+                    <p>tel: {{ userinfo.phone_number }}</p>
                 </div>
                 <div class="col">
-                    <a href="">E-postayi değiştir</a> <br>
-                    <a href="">Parolayı değiştir</a> <br>
-                    <a href="">Telefon numarasını değiştir</a>
+                    <div class="col-12 my-1">
+                        <!-- Button trigger modal -->
+                        <a type="button" class="" data-bs-toggle="modal" data-bs-target="#modalEmail">
+                            Emaili Değiştir
+                        </a>
+                    
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalEmail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Name Change</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="email" name="email" id="" class="form-control mt-2" placeholder="Email">
+                                            <button type="submit" name="formbutton" value="emailChange"
+                                                class="btn btn-primary mt-2">Kaydet</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 my-1">
+                        <!-- Button trigger modal -->
+                        <a type="button" class="" data-bs-toggle="modal" data-bs-target="#modalPassword">
+                            Parolayı Değiştir
+                        </a>
+                    
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Password Change</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="password" name="password" id="" class="form-control mt-2" placeholder="Old Password">
+                                            <input type="password" name="password1" id="" class="form-control mt-2" placeholder="New Password">
+                                            <input type="password" name="password2" id="" class="form-control mt-2" placeholder="Re New Password">
+                                            <button type="submit" name="formbutton" value="passwordChange"
+                                                class="btn btn-primary mt-2">Kaydet</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 my-1">
+                        <!-- Button trigger modal -->
+                        <a type="button" class="" data-bs-toggle="modal" data-bs-target="#modalName">
+                            Telefonu Değiştir
+                        </a>
+                    
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalName" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Name Change</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="POST">
+                                            {% csrf_token %}
+                                            <input type="text" name="name" id="" class="form-control mt-2" placeholder="Yeni Ad">
+                                            <input type="text" name="surname" id="" class="form-control mt-2" placeholder="Yeni Soyad">
+                                            <button type="submit" name="formbutton" value="nameChange"
+                                                class="btn btn-primary mt-2">Kaydet</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

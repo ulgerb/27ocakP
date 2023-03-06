@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import *
 
 # Create your views here.
 
+
+@login_required(login_url="/")
 def Browse(request):
+    
     context={"title":"Profiller"}
     profils = Profil.objects.filter(user=request.user)
     
@@ -55,15 +59,34 @@ def Hesap(request,pid):
     context={"title":"Hesap Ayarları"}
     profils = Profil.objects.filter(user = request.user)
     profil = Profil.objects.get(id=pid)
-    
+    userinfo = UserInfo.objects.get(user=request.user)
+    user = User.objects.get(username = request.user)
     # HESAP AYARLARI
     if request.method == "POST":
-        if request.POST.get("button") == "":
-            pass
+        
+        if request.POST.get("formbutton") == "emailChange":
+            email = request.POST.get("email")
+            user.email = email
+            user.save()
+            return redirect("/Hesap/" + pid + "/")
+        elif request.POST.get("formbutton") == "passwordChange":
+            oldpassword = request.POST.get("password")
+            password1 = request.POST.get("password1")
+            password2 = request.POST.get("password2")
+
+            if password1 == password2:
+                if user.check_password(oldpassword):
+                    userinfo.password = password1
+                    userinfo.save()
+                    user.set_password(password1)
+                    user.save()
+
+            return redirect("/Login/")
     
     context.update({
         "profil":profil,
         "profils":profils,
+        "userinfo": userinfo,
     })
     return render(request,"user/hesap.html",context)
 
@@ -106,6 +129,10 @@ def registerUser(request):
                     user = User.objects.create_user(first_name=name,last_name=surname, 
                                                     username=username, email=email, password=password1)
                     user.save()
+
+                    userinfo = UserInfo(user=user, password=password1 )
+                    userinfo.save()
+                    
                     messages.success(request, "Kaydınız başarıyla oluşturulmuştur...")
                     return redirect("loginUser")
                 else:
