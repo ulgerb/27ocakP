@@ -32,34 +32,54 @@
             backdrop-filter: blur(30px);
             ">
                     <div class="card-body p-5 shadow-5 text-center">
-                        <h2 class="fw-bold mb-5">Sign up now</h2>
-                        <form>
+                        <h2 class="fw-bold mb-5">Kayıt Ol</h2>
+                        
+                        {% if messages %}
+                            <ul>
+                                {% for i in messages %}
+                                    <li class="text-start" style="color: red;">{{ i }}</li>   
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                            
+                        <form method="POST">
+                            {% csrf_token %}
                             <!-- 2 column grid layout with text inputs for the first and last names -->
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="form3Example1" class="form-control" />
-                                        <label class="form-label" for="form3Example1">First name</label>
+                                        <input type="text" name="name" id="form3Example1" class="form-control py-2" />
+                                        <label class="form-label" for="form3Example1">Ad</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
                                     <div class="form-outline">
-                                        <input type="text" id="form3Example2" class="form-control" />
-                                        <label class="form-label" for="form3Example2">Last name</label>
+                                        <input type="text" name="surname" id="form3Example2" class="form-control py-2" />
+                                        <label class="form-label" for="form3Example2">Soyad</label>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="form3Example3" class="form-control" />
+                                <input type="email" name="email" id="form3Example3" class="form-control py-2" />
                                 <label class="form-label" for="form3Example3">Email address</label>
+                            </div>
+                            <!-- Username input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" name="username" id="form3Example5" class="form-control py-2" />
+                                <label class="form-label" for="form3Example5">Kullanıcı Adı</label>
                             </div>
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="form3Example4" class="form-control" />
-                                <label class="form-label" for="form3Example4">Password</label>
+                                <input type="password" name="password1" id="form3Example4" class="form-control py-2" />
+                                <label class="form-label" for="form3Example4">Şifre</label>
+                            </div>
+                            <!-- Re Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" name="password2" id="form3Example4" class="form-control py-2" />
+                                <label class="form-label" for="form3Example4">Yeniden Şifre</label>
                             </div>
 
                             <!-- Checkbox -->
@@ -67,14 +87,15 @@
                                 <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33"
                                     checked />
                                 <label class="form-check-label" for="form2Example33">
-                                    Subscribe to our newsletter
+                                    Kullanım koşullarını kabul ediyorum
                                 </label>
                             </div>
-
                             <!-- Submit button -->
                             <button type="submit" class="btn btn-primary btn-block mb-4">
-                                Sign up
+                                Kaydol
                             </button>
+                            
+                            <p>Zaten bir hesabım var <a href="{% url 'loginUser' %}">Giriş Yap</a></p>
 
                             <!-- Register buttons -->
                             <div class="text-center">
