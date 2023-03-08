@@ -17,8 +17,18 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-
+from appMy.views import *
+from appUser.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('',index, name="index"),
+    path('About/',About, name="About"),
+    path('Contact/',Contact, name="Contact"),
+    path('Shop/',Shop, name="Shop"),
+    path('ShopDetail/',ShopDetail, name="ShopDetail"),
+    # USER
+    path('login/', loginUser, name="loginUser"),
+    path('register/', registerUser, name="registerUser"),
+    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
