@@ -5,9 +5,12 @@ from .models import *
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('title', 'id','user', 'category', 'price', 'stars')
+    list_display = ('title', 'id','user', 'category', 'stars')
 
 
+@admin.register(ProductImg)
+class ProductImgAdmin(admin.ModelAdmin):
+    list_display = ('product', 'id')
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'id','slug')
@@ -23,13 +26,22 @@ class SizeNumberAdmin(admin.ModelAdmin):
 
 @admin.register(SizeLetter)
 class SizeLetterAdmin(admin.ModelAdmin):
-    list_display = ('product','id', 'color', 'stok_s',
-                    'stok_m', 'stok_l', 'stok_xl')
+    list_display = ('product','id', 'color', 'size','stok')
 
 
 @admin.register(ProductStok)
 class ProductStokAdmin(admin.ModelAdmin):
     list_display = ('product','id')
 
+@admin.register(Gander)
+class GanderAdmin(admin.ModelAdmin):
+    list_display = ('title','id')
+    
+@admin.register(Size)
+class SizeAdmin(admin.ModelAdmin):
+    list_display = ('title', 'id')
 
+@admin.register(Size2)
+class Size2Admin(admin.ModelAdmin):
+    list_display = ('title', 'id')
 

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import *
 
 def index(request):
     context = {}
@@ -13,7 +14,14 @@ def Contact(request):
     return render(request,'contact.html',context)
 
 def Shop(request):
-    context = {}
+    products = ProductStok.objects.all()
+    for i in products:
+        print(i.sizeletter.first())
+        for j in i.sizeletter.all():
+            print(j)
+    context = {
+        "products":products,
+    }
     return render(request,'shop.html',context)
 
 def ShopDetail(request):
