@@ -1,3 +1,28 @@
 /*
 Custom Css
 */
+
+.bg-white{
+    background: white !important;
+}
+.bg-black{
+    background: black !important;
+}
+.bg-blue{
+    background: blue !important;
+}
+.bg-red{
+    background: red !important;
+}
+.bg-green{
+    background: green !important;
+}
+.bg-yellow{
+    background: yellow !important;
+}
+.bg-purple{
+    background: purple !important;
+}
+.bg-orange{
+    background: orange !important;
+}

@@ -7,6 +7,26 @@
     <!-- Slick -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
+    <style>
+        .colorradio + label{
+            border: 4px solid black !important;
+        }
+        .sizeradio,.colorradio{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            -ms-appearance: none;
+            -o-appearance: none;
+            appearance: none;
+        }
+        .sizeradio:checked + label{
+            background: #b2b2b2 !important;
+            box-shadow: inset 0px 0px 8px 4px #00000060;
+        }
+        .colorradio:checked + label{
+            box-shadow: inset 0px 0px 8px 15px #00000060;
+            border: 4px solid gray !important;
+        }
+    </style>
 {% endblock css %}
     
 
@@ -20,7 +40,7 @@
             <div class="row">
                 <div class="col-lg-5 mt-5">
                     <div class="card mb-3">
-                        <img class="card-img img-fluid" src="{% static 'img/product_single_10.jpg' %}" alt="Card image cap" id="product-detail">
+                        <img class="card-img img-fluid" src="{{ product.images.first.image.url }}" alt="Card image cap" id="product-detail" style="height: 400px; object-fit: contain;">
                     </div>
                     <div class="row">
                         <!--Start Controls-->
@@ -39,68 +59,55 @@
                                 <!--First slide-->
                                 <div class="carousel-item active">
                                     <div class="row">
+                                        
+                                        {% for i in product.images.all|slice:':3' %}
+                                            
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_01.jpg' %}" alt="Product Image 1">
+                                                <img class="card-img img-fluid" src="{{ i.image.url }}" style="object-fit: cover; height: 100px;" alt="Product Image 1">
                                             </a>
                                         </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_02.jpg' %}" alt="Product Image 2">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_03.jpg' %}" alt="Product Image 3">
-                                            </a>
-                                        </div>
+                                        {% endfor %}
+                                            
+                                        
                                     </div>
                                 </div>
                                 <!--/.First slide-->
-
-                                <!--Second slide-->
-                                <div class="carousel-item">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_04.jpg' %}" alt="Product Image 4">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_05.jpg' %}" alt="Product Image 5">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_06.jpg' %}" alt="Product Image 6">
-                                            </a>
+                                
+                                {% if product.images.all|length > 3 %}
+                                    <!--Second slide-->
+                                    <div class="carousel-item">
+                                        <div class="row">
+                                            {% for i in product.images.all|slice:'3:6' %}
+                                            <div class="col-4">
+                                                <a href="#">
+                                                    <img class="card-img img-fluid" src="{{ i.image.url }}" style="object-fit: cover; height: 100px;"
+                                                        alt="Product Image 1">
+                                                </a>
+                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
-                                </div>
-                                <!--/.Second slide-->
-
+                                    <!--/.Second slide-->
+                                {% endif %}
+                                    
+                                
+                                {% if product.images.all|length > 6 %}
                                 <!--Third slide-->
                                 <div class="carousel-item">
                                     <div class="row">
+                                        {% for i in product.images.all|slice:'6:9' %}
                                         <div class="col-4">
                                             <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_07.jpg' %}" alt="Product Image 7">
+                                                <img class="card-img img-fluid" src="{{ i.image.url }}" style="object-fit: cover; height: 100px;"
+                                                    alt="Product Image 1">
                                             </a>
                                         </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_08.jpg' %}" alt="Product Image 8">
-                                            </a>
-                                        </div>
-                                        <div class="col-4">
-                                            <a href="#">
-                                                <img class="card-img img-fluid" src="{% static 'img/product_single_09.jpg' %}" alt="Product Image 9">
-                                            </a>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <!--/.Third slide-->
+                                {% endif %}
                             </div>
                             <!--End Slides-->
                         </div>
@@ -119,65 +126,94 @@
                 <div class="col-lg-7 mt-5">
                     <div class="card">
                         <div class="card-body">
-                            <h1 class="h2">Active Wear</h1>
-                            <p class="h3 py-2">$25.00</p>
+                            <h1 class="h2">{{ product.product.title }}</h1>
+                            <p class="h3 py-2">₺ {{ product.sizeletter.first.price }}</p>
                             <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-secondary"></i>
-                                <span class="list-inline-item text-dark">Rating 4.8 | 36 Comments</span>
+                                <span class="list-inline-item text-dark">Rating {{ product.product.stars }} | 36 Comments</span>
                             </p>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <h6>Brand:</h6>
+                                    <h6>Marka:</h6>
                                 </li>
                                 <li class="list-inline-item">
-                                    <p class="text-muted"><strong>Easy Wear</strong></p>
+                                    <p class="text-muted"><strong>{{ product.product.brand }}</strong></p>
                                 </li>
                             </ul>
-
-                            <h6>Description:</h6>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse. Donec condimentum elementum convallis. Nunc sed orci a diam ultrices aliquet interdum quis nulla.</p>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <h6>Avaliable Color :</h6>
-                                </li>
-                                <li class="list-inline-item">
-                                    <p class="text-muted"><strong>White / Black</strong></p>
-                                </li>
-                            </ul>
-
                             <h6>Specification:</h6>
                             <ul class="list-unstyled pb-3">
-                                <li>Lorem ipsum dolor sit</li>
-                                <li>Amet, consectetur</li>
-                                <li>Adipiscing elit,set</li>
-                                <li>Duis aute irure</li>
-                                <li>Ut enim ad minim</li>
-                                <li>Dolore magna aliqua</li>
-                                <li>Excepteur sint</li>
+                                <li>{{ product.product.detail }}</li>
                             </ul>
+
+                            <h6>Açıklama:</h6>
+                            <p>{{ product.product.text }}</p>
+
+
+                            <ul class="list-inline">
+                                <li class="list-inline-item">
+                                    <h6>Renkler :</h6>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p class="text-muted">
+                                        
+                                        {% for i in product.product.colors.all %}
+                                        <strong>{{ i }} /</strong>
+                                        {% endfor %}
+                                            
+                                    </p>
+                                </li>
+                            </ul>
+
 
                             <form action="" method="GET">
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
+                                    <div class="col-auto w-100">
+                                        <ul class="list-inline pb-3">
+                                            <li class="list-inline-item">Renkler :
+                                                <input type="hidden" name="product-size" id="product-size" value="S">
+                                            </li>
+                                            {% for i in product.product.colors.all %}
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="color" id="color{{ i.id }}" class="colorradio">
+                                                <label for="color{{ i.id }}" class="btn btn-success bg-{{ i.styletitle }} px-3 py-4"></label>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item">Size :
                                                 <input type="hidden" name="product-size" id="product-size" value="S">
                                             </li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">S</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">M</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">L</span></li>
-                                            <li class="list-inline-item"><span class="btn btn-success btn-size">XL</span></li>
+                                            
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="size" id="sizeS" class="sizeradio">
+                                                <label for="sizeS" class="btn btn-success">S</label>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="size" id="sizeM" class="sizeradio">
+                                                <label for="sizeM" class="btn btn-success">M</label>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="size" id="sizeL" class="sizeradio">
+                                                <label for="sizeL" class="btn btn-success">L</label>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="size" id="sizeXL" class="sizeradio">
+                                                <label for="sizeXL" class="btn btn-success">XL</label>
+                                            </li>
+                                            
                                         </ul>
                                     </div>
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item text-right">
-                                                Quantity
+                                                Adet
                                                 <input type="hidden" name="product-quanity" id="product-quanity" value="1">
                                             </li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
@@ -195,7 +231,10 @@
                                     </div>
                                 </div>
                             </form>
-
+                            <script>
+                                var sizeprice = "{{ product.product.price }}";
+                                console.log(sizeprice);
+                            </script>
                         </div>
                     </div>
                 </div>

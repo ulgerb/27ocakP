@@ -15,6 +15,7 @@ class Category(models.Model):
         
 class Color(models.Model):
     title = models.CharField(("Renkler"), max_length=50)
+    styletitle = models.CharField(("Renk class"), max_length=50, null=True)
     slug = models.SlugField(("Slug Renk"), blank=True)
 
     def save(self, *args, **kwargs):
@@ -64,7 +65,13 @@ class Product(models.Model):
     text = models.TextField(("Açıklama"), max_length=1000)
     detail = models.TextField(("Özellikler"), max_length=800)
     stars = models.FloatField(("Puan"), default=0)
-    
+    slug = models.SlugField(("Slug Title"), blank=True, null=True)
+    colors = models.ManyToManyField(Color, verbose_name=("Renkler")) 
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Product, self).save(*args, **kwargs)
+        
     def __str__(self):
         return self.title
 
