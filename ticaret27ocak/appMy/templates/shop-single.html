@@ -127,7 +127,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h1 class="h2">{{ product.product.title }}</h1>
-                            <p class="h3 py-2">₺ {{ product.sizeletter.first.price }}</p>
+                            <p class="h3 py-2 text-success fw-bold" id="productprice">₺{{ product.sizeletter.first.price }}</p>
                             <p class="py-2">
                                 <i class="fa fa-star text-warning"></i>
                                 <i class="fa fa-star text-warning"></i>
@@ -169,43 +169,45 @@
                             </ul>
 
 
-                            <form action="" method="GET">
+                            <form name="formdetay" method="POST" id="formdetay">
+                                {% csrf_token %}
                                 <input type="hidden" name="product-title" value="Activewear">
                                 <div class="row">
                                     <div class="col-auto w-100">
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item">Renkler :
-                                                <input type="hidden" name="product-size" id="product-size" value="S">
                                             </li>
                                             {% for i in product.product.colors.all %}
                                             <li class="list-inline-item">
-                                                <input type="radio" name="color" id="color{{ i.id }}" class="colorradio">
-                                                <label for="color{{ i.id }}" class="btn btn-success bg-{{ i.styletitle }} px-3 py-4"></label>
+                                                <input type="radio" name="color" onclick="productColor(this.value)" value="{{ i.styletitle }}" id="{{ i.styletitle }}" class="colorradio">
+                                                <label for="{{ i.styletitle }}" class="btn btn-success bg-{{ i.styletitle }} px-3 py-4"></label>
                                             </li>
                                             {% endfor %}
                                         </ul>
                                     </div>
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">
-                                            <li class="list-inline-item">Size :
-                                                <input type="hidden" name="product-size" id="product-size" value="S">
-                                            </li>
+                                            <li class="list-inline-item">Size :</li>
                                             
                                             <li class="list-inline-item">
-                                                <input type="radio" name="size" id="sizeS" class="sizeradio">
+                                                <input type="radio" name="size" onclick="productSize(this.value)" value="S" id="sizeS" class="sizeradio">
                                                 <label for="sizeS" class="btn btn-success">S</label>
                                             </li>
                                             <li class="list-inline-item">
-                                                <input type="radio" name="size" id="sizeM" class="sizeradio">
+                                                <input type="radio" name="size" onclick="productSize(this.value)" value="M" id="sizeM" class="sizeradio">
                                                 <label for="sizeM" class="btn btn-success">M</label>
                                             </li>
                                             <li class="list-inline-item">
-                                                <input type="radio" name="size" id="sizeL" class="sizeradio">
+                                                <input type="radio" name="size" onclick="productSize(this.value)" value="L" id="sizeL" class="sizeradio">
                                                 <label for="sizeL" class="btn btn-success">L</label>
                                             </li>
                                             <li class="list-inline-item">
-                                                <input type="radio" name="size" id="sizeXL" class="sizeradio">
+                                                <input type="radio" name="size" onclick="productSize(this.value)" value="XL" id="sizeXL" class="sizeradio">
                                                 <label for="sizeXL" class="btn btn-success">XL</label>
+                                            </li>
+                                            <li class="list-inline-item">
+                                                <input type="radio" name="size" onclick="productSize(this.value)" value="XXL" id="sizeXXL" class="sizeradio">
+                                                <label for="sizeXXL" class="btn btn-success">XXL</label>
                                             </li>
                                             
                                         </ul>
@@ -214,7 +216,7 @@
                                         <ul class="list-inline pb-3">
                                             <li class="list-inline-item text-right">
                                                 Adet
-                                                <input type="hidden" name="product-quanity" id="product-quanity" value="1">
+                                                <input type="hidden" name="count" id="product-quanity" value="1">
                                             </li>
                                             <li class="list-inline-item"><span class="btn btn-success" id="btn-minus">-</span></li>
                                             <li class="list-inline-item"><span class="badge bg-secondary" id="var-value">1</span></li>
@@ -232,8 +234,52 @@
                                 </div>
                             </form>
                             <script>
-                                var sizeprice = "{{ product.product.price }}";
-                                console.log(sizeprice);
+                                let listprice = "{{ listprice }}".replace("[","").replace("]","").trim().split(", ");
+                                let listsize = "{{ listsize|safe }}".replace(/'/g, '').replace("[", "").replace("]", "").split(", ");
+                                let listcolor = "{{ listcolor|safe }}".replace(/'/g, '').replace("[", "").replace("]", "").split(", ");
+                                var productprice = document.getElementById("productprice");
+                                var productsize, productcolor;
+                                var colors = [];
+
+                                console.log(listprice);
+                                console.log(listsize);
+                                console.log(listcolor);
+
+                                productSize = (size)=>{
+                                    productsize = size.toLowerCase();
+                                    productPrice();
+                                    disableColor();
+                                }
+                                productColor = (color)=>{
+                                    productcolor = color;
+                                    productPrice();
+                                }
+
+                                productPrice = ()=>{
+                                    for (i = 0; i < listprice.length; i++) {
+                                        if (listsize[i] === productsize && listcolor[i] === productcolor) {
+                                            productprice.innerText = "₺"+listprice[i] 
+                                        }
+                                    }
+                                }
+
+                                disableColor = ()=>{
+                                    var colorradio = document.querySelectorAll(".colorradio")
+                                    for (i = 0; i < listprice.length/2; i++){
+                                        colorradio[i].setAttribute('disabled', '');
+                                        
+                                    }
+                                    for (i = 0; i < listprice.length; i++) {
+                                        if(listsize[i] == productsize){
+                                            console.log("asd");
+                                            document.getElementById(listcolor[i]).removeAttribute("disabled"); 
+                                        }
+                                    }
+                                }
+                                
+                                if (productsize != undefined && productcolor != undefined){
+                                }
+                                
                             </script>
                         </div>
                     </div>

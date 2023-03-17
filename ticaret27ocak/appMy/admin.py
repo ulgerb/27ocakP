@@ -45,3 +45,11 @@ class SizeAdmin(admin.ModelAdmin):
 class Size2Admin(admin.ModelAdmin):
     list_display = ('title', 'id')
 
+
+
+@admin.register(Shopbasket)
+class ShopbasketAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product_letter',
+                    'price_all', 'count', 'id')
+
+    

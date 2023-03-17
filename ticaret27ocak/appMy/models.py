@@ -105,7 +105,7 @@ class SizeLetter(models.Model):
     size = models.ForeignKey(Size2, verbose_name=("Beden"), on_delete=models.CASCADE,null=True)
 
     def __str__(self):
-        return self.product.title
+        return self.product.title + " || " + self.color.styletitle + " || " + self.size.title
     
 class ProductStok(models.Model):
     product = models.ForeignKey(Product, verbose_name=("Ürün"), on_delete=models.CASCADE)
@@ -116,7 +116,15 @@ class ProductStok(models.Model):
     def __str__(self):
         return self.product.title
     
+
+class Shopbasket(models.Model):
+    user = models.ForeignKey(User, verbose_name=("Kullanıcı"), on_delete=models.CASCADE)
+    product_letter = models.ForeignKey(SizeLetter, verbose_name=("Ürün Giysi"), on_delete=models.CASCADE)
+    price_all = models.FloatField(("Toplam Fiyat"), default=0)
+    count = models.IntegerField(("Adet"), default=0)
     
+    def __str__(self):
+        return self.product_letter.product.title
     
     
     
